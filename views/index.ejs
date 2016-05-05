@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <title>Login and Registration Form with HTML5 and CSS3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/animate-custom.css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    p>input.notallow{
+        cursor: not-allowed !important;
+    }
+    span{
+        color: red;
+    }
+    .forgotpwd{
+        float: left;
+    }
+    </style>
+</head>
+
+<body ng-controller="registration">
+    <div class="container">
+        <section>
+            <div id="container_demo">
+                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                <a class="hiddenanchor" id="toregister"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div id="wrapper">
+                    <div id="login" class="animate form">
+                        <form name="loginform">
+                            <h1>Log in</h1>
+                            <p>
+                                <label for="username" class="uname" data-icon="u">Email </label>
+                                <input id="username" name="email" ng-model="email" required type="email" placeholder="myusername or mymail@mail.com" />
+                                <span ng-show="loginform.email.$touched && loginform.email.$invalid">The Email is required.</span>
+                            </p>
+                            <p>
+                                <label for="password" class="youpasswd" data-icon="p">Password </label>
+                                <input id="password" name="password" ng-model="pwd" required type="password" placeholder="eg. X8df!90EO" />
+                                <span ng-show="loginform.password.$touched && loginform.password.$invalid">The Password is required.</span>
+                            </p>               
+                          
+                            <p class="login button">
+                                <input type="submit" ng-click="onLogin()" ng-disabled ="loginform.$invalid" ng-class="{'notallow':loginform.$invalid}" value="Login" />
+                            </p>
+                            <div class="social_icon">
+                                <ul class="social-network social-circle">
+                                <!-- <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li> -->
+                                <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <!-- <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li> -->
+                                <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                <!-- <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li> -->
+                                </ul>
+                            </div>
+                            <p class="change_link">
+                            <a href="/forgotpassword" class="to_register forgotpwd">Forgot Password</a>
+                                <!-- Not a member yet ? -->
+                                <a href="#toregister" class="to_register">Register</a>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div id="register" class="animate form">
+                        <form name="regform">
+                            <h1> Sign up </h1>
+                            <p>
+                                <label for="usernamesignup" class="uname" data-icon="u">Username</label>
+                                <input id="usernamesignup" name="uname" ng-model="uname" required type="text" placeholder="mysuperusername690" />
+                                <span ng-show="regform.uname.$touched  && regform.uname.$invalid">Username is required.</span>
+                            </p>                            
+                            <p>
+                                <label for="emailsignup" class="youmail" data-icon="e">Email</label>
+                                <input id="emailsignup" name="email" ng-model="email" required type="email" placeholder="mysupermail@mail.com" />
+                                <span ng-show="regform.email.$touched && regform.email.$invalid">Email is required.</span>
+                            </p>
+                            <p>
+                                <label for="passwordsignup" class="youpasswd" data-icon="p">Password </label>
+                                <input id="passwordsignup" name="passwordsignup" ng-model="pwd" required type="password" placeholder="eg. X8df!90EO" />
+                                <span ng-show="regform.passwordsignup.$touched && regform.passwordsignup.$invalid">Password is required.</span>
+                            </p>
+                            <p>
+                                <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Confirm password </label>
+                                <input id="passwordsignup_confirm" name="passwordsignup_confirm" ng-model="cpwd" required type="password" placeholder="eg. X8df!90EO" />
+                                <span ng-show="regform.passwordsignup_confirm.$touched && regform.passwordsignup_confirm.$invalid">Confirm password is required.</span>
+                            </p>
+                            <p class="signin button">
+                                <input type="button" ng-click="onRegistration()" ng-disabled ="regform.$invalid" ng-class="{'notallow':regform.$invalid}" value="Sign up" />
+                            </p>
+                            <p class="change_link">
+                                Already a member ?
+                                <a href="#tologin" class="to_register"> Go and log in </a>
+                            </p>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script type="text/javascript" src="/javascripts/built.min.js"></script>
+    <script type="text/javascript" src="/javascripts/angular.min.js"></script>
+    <script type="text/javascript" src="/javascripts/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="/javascripts/myapplication.js"></script>
+</body>
+
+</html>

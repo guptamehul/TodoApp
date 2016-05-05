@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <title>Login and Registration Form with HTML5 and CSS3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/animate-custom.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-theme.css">
+    <style type="text/css">
+    #login {
+        padding-bottom: 6px;
+        position: relative;
+    }
+    
+    .error {
+        color: red;
+    }
+    
+    th {
+        font-weight: bold;
+        font-size: 16px;
+        color: #fcfcfc;
+    }
+    
+    td,
+    th {
+        text-align: center;
+        font-size: 16px;
+    }
+    
+    td img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    thead.thead-default {
+        background: rgb(61, 157, 179);
+    }
+    
+    .table-bordered {
+        width: 91%;
+        border: 1px solid #fff;
+    }
+    
+    .table-bordered > tbody > tr > td {
+        border: 1px solid rgb(178, 178, 178);
+    }
+    
+    table {
+        /*position: absolute;*/
+        background: rgb(247, 247, 247);
+        border: 1px solid rgba(147, 184, 189, 0.8);
+        -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7), 0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+        -moz-box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7), 0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+        box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7), 0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+        -webkit-box-shadow: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        padding: 18px 6% 60px 6%;
+    }
+    
+    .notallow {
+        cursor: not-allowed !important;
+    }
+    
+    .logout,
+    .share {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logout {
+        float: right;
+    }
+    .u_name{
+        float: left;
+        font-size: 20px;
+
+
+    }
+    </style>
+</head>
+
+<body ng-controller="todo">
+    <div class="container">
+        <section>
+            <div id="container_demo">
+                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                <a class="hiddenanchor" id="toregister"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div id="wrapper">
+                    <div id="login" class="animate form">
+                    <p class="u_name"><%= username1%></p>
+                      <img class="logout" src="/images/logout.png" ng-click="logout()" title="logout">
+                      <!-- <a href="/logout">Logout</a> -->
+                        
+                        <form name="todoform">
+
+                            <div class="control-group" ng-class="{true: 'error'}">
+                                <h1> ToDo </h1>
+                                <p>
+                                    <label for="usernamesignup" class="uname" data-icon="u">Task Name</label>
+                                    <input id="usernamesignup" name="tname" ng-model="tname" required type="text" placeholder="mysuperusername690" />
+                                    <div class="error" ng-show="todoform.tname.$touched && todoform.tname.$invalid">Enter Task name</div>
+                                </p>
+                                <p>
+                                    <label for="emailsignup" class="youmail" data-icon="e">Description</label>
+                                    <input id="emailsignup" name="des" ng-model="des" required="required" type="text" />
+                                    <div class="error" ng-show="todoform.des.$touched && todoform.des.$invalid">Enter Description</div>
+                                </p>
+                                <!-- <p>
+                             <input type="checkbox" value="true" ng-model="status_task" />Done                               
+                            </p> -->
+                                <p class="signin button">
+                                    <input type="submit" ng-click="addTask()" ng-disabled="todoform.$invalid" ng-class="{'notallow':todoform.$invalid}" value="Enter Task" />
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="container">
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <form name="shareform">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Share Task with User</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <select class="form-control" ng-options="user.username for user in userList" required ng-model="selected">
+                                        </select>
+                                        <div ng-show="shareform.selected.$touched  && shareform.selected.$invalid"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" ng-click="selectedUser()" ng-disabled="shareform.$invalid" ng-class="{'notallow':shareform.$invalid}" title="Please select user" class="btn btn-info" data-dismiss="modal">Share</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End-->
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Share</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="task in taskname">
+                                <td>
+                                    <span ng-show="show1">{{task.task_name}}</span>
+                                    <span ng-hide="show1">
+                                        <input id="username" ng-model="task.task_name" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <span ng-show="show1">{{task.description}}</span>
+                                    <span ng-hide="show1">
+                                        <input id="username" ng-model="task.description" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <input type="checkbox" ng-model="task.status" ng-click="statusUpdate(task)" />
+                                </td>
+                                <td>
+                                    <img src="/images/edit.png" ng-click="show1=false" title="Edit" ng-hide="task.status" ng-show="show1">
+                                    <img src="/images/correct.png" ng-click="taskUpdate(task);show1=true" ng-hide="show1">
+                                </td>
+                                <td>
+                                    <div ng-if="current_uuid == task.app_user_object_uid">
+                                        <img src="/images/delete.png" ng-if="task.status" ng-show="task.status" title="Delete" ng-click="deleteTask(task,$index)">
+                                        <img src="/images/cant-delete.png" ng-hide="task.status" ng-class="{'notallow':!task.status}" />                                        
+                                    </div>
+                                    <div ng-if="current_uuid != task.app_user_object_uid"></div>
+                                </td>
+                                <td> 
+                                    <img src="/images/share1.png" ng-if="current_uuid == task.app_user_object_uid" class="share" title="share with user" ng-click="shareTask(task)" data-toggle="modal" data-target="#myModal">
+                                    <div ng-if="current_uuid != task.app_user_object_uid" class="info" >Task share by {{task._owner.username}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script type="text/javascript" src="/javascripts/built.min.js"></script>
+    <script type="text/javascript" src="/javascripts/angular.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="/javascripts/myapplication.js"></script>
+
+</body>
+
+</html>
